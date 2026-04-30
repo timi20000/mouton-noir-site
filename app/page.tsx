@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { ArrowUpRight, Clock3, MapPin, Menu, Phone, Star, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatedSection } from "@/components/animated-section";
 import { Reveal } from "@/components/reveal";
 import { SectionTitle } from "@/components/section-title";
@@ -19,6 +19,17 @@ const navItems = [
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const progressScaleX = useSpring(scrollYProgress, {
+    stiffness: 130,
+    damping: 24,
+    restDelta: 0.001
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", menuOpen);
+    return () => document.body.classList.remove("menu-open");
+  }, [menuOpen]);
 
   const ldJson = useMemo(
     () => ({
@@ -47,6 +58,10 @@ export default function HomePage() {
 
   return (
     <main>
+      <motion.div className="scroll-progress" style={{ scaleX: progressScaleX }} />
+      <div className="ambient ambient-1" />
+      <div className="ambient ambient-2" />
+      <div className="ambient ambient-3" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
 
       <header className="topbar">
@@ -63,15 +78,42 @@ export default function HomePage() {
         </button>
       </header>
 
-      {menuOpen ? (
-        <div className="mobile-panel">
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-              {item.label}
-            </a>
-          ))}
-        </div>
-      ) : null}
+      <AnimatePresence>
+        {menuOpen ? (
+          <>
+            <motion.button
+              className="mobile-backdrop"
+              aria-label="Fermer le menu"
+              onClick={() => setMenuOpen(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            />
+            <motion.div
+              className="mobile-panel"
+              initial={{ opacity: 0, y: -16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.22, delay: index * 0.04 }}
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+            </motion.div>
+          </>
+        ) : null}
+      </AnimatePresence>
 
       <section className="hero">
         <div className="hero-media">
