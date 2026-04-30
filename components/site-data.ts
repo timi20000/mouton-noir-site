@@ -30,11 +30,22 @@ export const siteData = {
     "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80",
     "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80"
   ],
+  heroAlts: [
+    "Le Mouton Noir, restaurant de saison à Corgnac-sur-l'Isle en Dordogne, salle élégante",
+    "Cuisine de saison dressée dans l'esprit du restaurant Le Mouton Noir",
+    "Ambiance de soirée au restaurant Le Mouton Noir à Corgnac-sur-l'Isle"
+  ],
   gallery: [
     "https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=1400&q=80",
     "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1400&q=80",
     "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=80",
     "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80"
+  ],
+  galleryAlts: [
+    "Cuisine de saison et dressage raffiné au restaurant Le Mouton Noir",
+    "Table et service en salle au Mouton Noir en Dordogne",
+    "Atmosphère conviviale dans un restaurant de Corgnac-sur-l'Isle",
+    "Carte du restaurant Le Mouton Noir autour des produits de saison"
   ],
   signatureDishes: [
     {

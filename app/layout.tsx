@@ -15,9 +15,23 @@ const body = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Mouton Noir | Expérience Culinaire",
+  title: "Le Mouton Noir — Restaurant de saison à Corgnac-sur-l’Isle, Dordogne",
   description:
-    "Restaurant signature: cuisine créative, atmosphère intime, service exigeant.",
+    "Le Mouton Noir, restaurant à Corgnac-sur-l’Isle en Dordogne. Cuisine de saison, carte courte, ambiance élégante et réservation conseillée.",
+  keywords: [
+    "Le Mouton Noir",
+    "restaurant Corgnac-sur-l'Isle",
+    "restaurant Dordogne",
+    "cuisine de saison",
+    "restaurant de saison"
+  ],
+  openGraph: {
+    title: "Le Mouton Noir — Restaurant de saison à Corgnac-sur-l’Isle, Dordogne",
+    description:
+      "Restaurant de saison à Corgnac-sur-l’Isle (Dordogne), cuisine soignée, galerie, avis et réservation.",
+    locale: "fr_FR",
+    type: "website"
+  },
   icons: {
     icon: "/favicon.ico"
   }

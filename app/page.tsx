@@ -41,7 +41,10 @@ export default function HomePage() {
       email: siteData.email,
       address: {
         "@type": "PostalAddress",
-        streetAddress: siteData.address,
+        streetAddress: "Corgnac-sur-l'Isle",
+        addressLocality: "Corgnac-sur-l'Isle",
+        addressRegion: "Dordogne",
+        postalCode: "24800",
         addressCountry: "FR"
       },
       geo: {
@@ -51,7 +54,22 @@ export default function HomePage() {
       },
       url: siteData.mapUrl,
       servesCuisine: "Française",
-      priceRange: "€€"
+      priceRange: "€€",
+      areaServed: "Dordogne",
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Tuesday", "Wednesday", "Thursday"],
+          opens: "19:00",
+          closes: "22:30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Friday", "Saturday"],
+          opens: "19:00",
+          closes: "23:00"
+        }
+      ]
     }),
     []
   );
@@ -125,7 +143,14 @@ export default function HomePage() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.1, delay: index * 0.2 }}
             >
-              <Image src={src} alt="Ambiance restaurant" fill priority={index === 0} />
+              <Image
+                src={src}
+                alt={siteData.heroAlts[index] ?? "Le Mouton Noir, restaurant de saison en Dordogne"}
+                fill
+                priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
+                sizes="(max-width: 1040px) 100vw, 50vw"
+              />
             </motion.div>
           ))}
         </div>
@@ -135,10 +160,13 @@ export default function HomePage() {
             {siteData.tagline}
           </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.1 }}>
-            {siteData.name}
+            Le Mouton Noir
+            <br />
+            Restaurant de saison à Corgnac-sur-l'Isle, Dordogne
           </motion.h1>
           <motion.p className="lede" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.2 }}>
-            {siteData.description}
+            {siteData.description} Le restaurant accueille les amateurs de cuisine de saison à
+            Corgnac-sur-l'Isle, au coeur de la Dordogne.
           </motion.p>
           <motion.div className="hero-cta" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.3 }}>
             <a href="#reserver" className="btn-primary">
@@ -154,7 +182,7 @@ export default function HomePage() {
       <AnimatedSection id="concept" className="section two-col">
         <div>
           <p className="kicker">Le concept</p>
-          <h2>Une signature culinaire locale, précise et sensible.</h2>
+          <h2>Concept, adresse et horaires du restaurant à Corgnac-sur-l'Isle</h2>
         </div>
         <div className="info-cards">
           <article>
@@ -180,9 +208,9 @@ export default function HomePage() {
 
       <AnimatedSection id="signature" className="section">
         <SectionTitle
-          kicker="Signature"
-          title="Une carte courte, technique, vivante."
-          subtitle="Produits du moment, cuisson juste, assaisonnement net."
+          kicker="Cuisine de saison"
+          title="Carte du restaurant: une cuisine de saison précise et vivante"
+          subtitle="Produits du moment, cuisson juste et assaisonnement net en Dordogne."
         />
         <div className="menu-grid">
           {siteData.signatureDishes.map((dish, index) => (
@@ -207,20 +235,26 @@ export default function HomePage() {
       <AnimatedSection id="galerie" className="section gallery-section">
         <SectionTitle
           kicker="Galerie"
-          title="Une atmosphère pensée comme une mise en scène."
-          subtitle="Lumière, matières, rythme de service: chaque détail compte."
+          title="Galerie du restaurant Le Mouton Noir"
+          subtitle="Lumière, matières et rythme de service: chaque détail compte."
         />
         <div className="gallery-grid">
           {siteData.gallery.map((src, index) => (
             <Reveal key={src} delay={index * 0.08} className={`gallery-item gallery-item-${index + 1}`}>
-              <Image src={src} alt="Galerie du restaurant" fill />
+              <Image
+                src={src}
+                alt={siteData.galleryAlts[index] ?? "Galerie du restaurant Le Mouton Noir"}
+                fill
+                loading="lazy"
+                sizes="(max-width: 1040px) 100vw, 50vw"
+              />
             </Reveal>
           ))}
         </div>
       </AnimatedSection>
 
       <AnimatedSection id="avis" className="section testimonials">
-        <SectionTitle kicker="Avis" title="Ils parlent de l’expérience." />
+        <SectionTitle kicker="Avis" title="Avis clients du restaurant Le Mouton Noir" />
         <div className="quote-grid">
           {siteData.testimonials.map((item) => (
             <article key={item.name}>
@@ -234,7 +268,7 @@ export default function HomePage() {
       </AnimatedSection>
 
       <AnimatedSection id="reserver" className="section reserve">
-        <h2>Réservez votre soirée chez {siteData.name}</h2>
+        <h2>Réservation au restaurant Le Mouton Noir</h2>
         <p>Service attentionné, places limitées. Réservation recommandée 48h à l’avance.</p>
         <div className="reserve-links">
           <a href={`mailto:${siteData.email}`} className="btn-primary">
