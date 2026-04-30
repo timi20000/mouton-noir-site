@@ -15,20 +15,22 @@ const body = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Le Mouton Noir — Restaurant de saison à Corgnac-sur-l’Isle, Dordogne",
+  title: "Le Mouton Noir — Bar-restaurant à Vergt en Dordogne",
   description:
-    "Le Mouton Noir, restaurant à Corgnac-sur-l’Isle en Dordogne. Cuisine de saison, carte courte, ambiance élégante et réservation conseillée.",
+    "Le Mouton Noir, bar-restaurant à Vergt, vous accueille sous la halle avec une cuisine de saison, des produits frais et locaux, une terrasse et une ambiance conviviale.",
   keywords: [
     "Le Mouton Noir",
-    "restaurant Corgnac-sur-l'Isle",
+    "restaurant à Vergt",
+    "bar-restaurant à Vergt",
+    "restaurant sous la halle de Vergt",
     "restaurant Dordogne",
-    "cuisine de saison",
-    "restaurant de saison"
+    "cuisine de saison Dordogne",
+    "produits locaux Vergt"
   ],
   openGraph: {
-    title: "Le Mouton Noir — Restaurant de saison à Corgnac-sur-l’Isle, Dordogne",
+    title: "Le Mouton Noir — Bar-restaurant à Vergt en Dordogne",
     description:
-      "Restaurant de saison à Corgnac-sur-l’Isle (Dordogne), cuisine soignée, galerie, avis et réservation.",
+      "Le Mouton Noir, bar-restaurant à Vergt en Dordogne, sous la halle avec cuisine de saison, produits frais et terrasse conviviale.",
     locale: "fr_FR",
     type: "website"
   },

@@ -11,14 +11,16 @@ import { siteData } from "@/components/site-data";
 
 const navItems = [
   { label: "Concept", href: "#concept" },
-  { label: "Signature", href: "#signature" },
-  { label: "Galerie", href: "#galerie" },
+  { label: "Cuisine", href: "#signature" },
+  { label: "Terrasse", href: "#galerie" },
   { label: "Avis", href: "#avis" },
-  { label: "Réserver", href: "#reserver" }
+  { label: "Horaires", href: "#horaires" },
+  { label: "Adresse", href: "#adresse" }
 ];
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
   const { scrollYProgress } = useScroll();
   const progressScaleX = useSpring(scrollYProgress, {
     stiffness: 130,
@@ -36,15 +38,15 @@ export default function HomePage() {
       "@context": "https://schema.org",
       "@type": "Restaurant",
       name: siteData.name,
-      description: siteData.description,
+      description:
+        "Bar-restaurant sous la halle de Vergt, cuisine de saison, produits frais et locaux, terrasse conviviale.",
       telephone: siteData.phone,
-      email: siteData.email,
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Corgnac-sur-l'Isle",
-        addressLocality: "Corgnac-sur-l'Isle",
+        streetAddress: "1 Place de la Halle",
+        addressLocality: "Vergt",
+        postalCode: "24380",
         addressRegion: "Dordogne",
-        postalCode: "24800",
         addressCountry: "FR"
       },
       geo: {
@@ -53,23 +55,9 @@ export default function HomePage() {
         longitude: siteData.coordinates.longitude
       },
       url: siteData.mapUrl,
-      servesCuisine: "Française",
-      priceRange: "€€",
-      areaServed: "Dordogne",
-      openingHoursSpecification: [
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Tuesday", "Wednesday", "Thursday"],
-          opens: "19:00",
-          closes: "22:30"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Friday", "Saturday"],
-          opens: "19:00",
-          closes: "23:00"
-        }
-      ]
+      servesCuisine: ["Francaise", "Cuisine de saison"],
+      openingHours: ["Mo 10:00-15:00", "Tu 10:00-15:00", "Th 10:00-15:00", "Fr 09:00-22:00", "Sa 10:00-22:00", "Su 10:00-22:00"],
+      priceRange: "€€"
     }),
     []
   );
@@ -145,7 +133,7 @@ export default function HomePage() {
             >
               <Image
                 src={src}
-                alt={siteData.heroAlts[index] ?? "Le Mouton Noir, restaurant de saison en Dordogne"}
+                alt={siteData.heroAlts[index] ?? "Restaurant Le Mouton Noir a Vergt"}
                 fill
                 priority={index === 0}
                 loading={index === 0 ? "eager" : "lazy"}
@@ -162,15 +150,15 @@ export default function HomePage() {
           <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.1 }}>
             Le Mouton Noir
             <br />
-            Restaurant de saison à Corgnac-sur-l'Isle, Dordogne
+            {siteData.seoTagline}
           </motion.h1>
           <motion.p className="lede" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.2 }}>
-            {siteData.description} Le restaurant accueille les amateurs de cuisine de saison à
-            Corgnac-sur-l'Isle, au coeur de la Dordogne.
+            Restaurant a Vergt, Le Mouton Noir rassemble dejeuner, diner et moments entre amis autour d'une cuisine de saison Dordogne,
+            de produits frais, de produits locaux Vergt, de cocktails, boissons et glaces.
           </motion.p>
           <motion.div className="hero-cta" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.3 }}>
-            <a href="#reserver" className="btn-primary">
-              Réserver une table <ArrowUpRight size={16} />
+            <a href="#horaires" className="btn-primary">
+              Reserver une table <ArrowUpRight size={16} />
             </a>
             <a href={`tel:${siteData.phone.replace(/\s/g, "")}`} className="btn-ghost">
               Appeler
@@ -181,36 +169,37 @@ export default function HomePage() {
 
       <AnimatedSection id="concept" className="section two-col">
         <div>
-          <p className="kicker">Le concept</p>
-          <h2>Concept, adresse et horaires du restaurant à Corgnac-sur-l'Isle</h2>
+          <p className="kicker">Concept</p>
+          <h2>Une table conviviale au coeur de Vergt</h2>
+          <p className="section-subtitle">
+            Ce bar-restaurant a Vergt est installe sous la halle et propose une ambiance chaleureuse, une terrasse vivante et une vraie
+            cuisine de partage.
+          </p>
         </div>
         <div className="info-cards">
           <article>
             <MapPin size={18} />
-            <h3>Adresse</h3>
+            <h3>Restaurant sous la halle de Vergt</h3>
             <p>{siteData.address}</p>
           </article>
           <article>
             <Clock3 size={18} />
-            <h3>Horaires</h3>
-            {siteData.openingHours.map((line) => (
-              <p key={line}>{line}</p>
-            ))}
+            <h3>Dejeuner, diner, moments entre amis</h3>
+            <p>Produits frais, terroir et inspirations du monde.</p>
           </article>
           <article>
             <Phone size={18} />
-            <h3>Contact</h3>
+            <h3>Contact direct</h3>
             <p>{siteData.phone}</p>
-            <p>{siteData.email}</p>
           </article>
         </div>
       </AnimatedSection>
 
       <AnimatedSection id="signature" className="section">
         <SectionTitle
-          kicker="Cuisine de saison"
-          title="Carte du restaurant: une cuisine de saison précise et vivante"
-          subtitle="Produits du moment, cuisson juste et assaisonnement net en Dordogne."
+          kicker="Cuisine"
+          title="Cuisine de saison et produits locaux"
+          subtitle="Restaurant en Dordogne: plats du terroir, inspirations du monde, cocktails, boissons et glaces."
         />
         <div className="menu-grid">
           {siteData.signatureDishes.map((dish, index) => (
@@ -234,16 +223,16 @@ export default function HomePage() {
 
       <AnimatedSection id="galerie" className="section gallery-section">
         <SectionTitle
-          kicker="Galerie"
-          title="Galerie du restaurant Le Mouton Noir"
-          subtitle="Lumière, matières et rythme de service: chaque détail compte."
+          kicker="Terrasse"
+          title="Terrasse sous la halle"
+          subtitle="Le Mouton Noir, restaurant a Vergt, prolonge l'experience dehors dans une atmosphere conviviale."
         />
         <div className="gallery-grid">
           {siteData.gallery.map((src, index) => (
             <Reveal key={src} delay={index * 0.08} className={`gallery-item gallery-item-${index + 1}`}>
               <Image
                 src={src}
-                alt={siteData.galleryAlts[index] ?? "Galerie du restaurant Le Mouton Noir"}
+                alt={siteData.galleryAlts[index] ?? "Bar-restaurant Le Mouton Noir en Dordogne"}
                 fill
                 loading="lazy"
                 sizes="(max-width: 1040px) 100vw, 50vw"
@@ -254,29 +243,101 @@ export default function HomePage() {
       </AnimatedSection>
 
       <AnimatedSection id="avis" className="section testimonials">
-        <SectionTitle kicker="Avis" title="Avis clients du restaurant Le Mouton Noir" />
+        <SectionTitle kicker="Avis" title="Avis clients" subtitle="Apprécie pour son cadre sous la halle, son service chaleureux, sa cuisine généreuse, ses produits frais et son bon rapport qualité/prix." />
         <div className="quote-grid">
           {siteData.testimonials.map((item) => (
             <article key={item.name}>
               <Star size={16} />
-              <p>“{item.quote}”</p>
+              <p>"{item.quote}"</p>
               <strong>{item.name}</strong>
               <span>{item.role}</span>
             </article>
           ))}
+          <article>
+            <Star size={16} />
+            <p>"Note Google autour de 4,8/5 selon les annuaires synchronises avec la fiche locale."</p>
+            <strong>Reputation en ligne</strong>
+            <span>Donnee indicative a verifier sur Google Maps</span>
+          </article>
         </div>
       </AnimatedSection>
 
-      <AnimatedSection id="reserver" className="section reserve">
-        <h2>Réservation au restaurant Le Mouton Noir</h2>
-        <p>Service attentionné, places limitées. Réservation recommandée 48h à l’avance.</p>
+      <AnimatedSection id="horaires" className="section reserve">
+        <h2>Horaires et réservation</h2>
+        <div className="hours-table" role="table" aria-label="Horaires d'ouverture">
+          <div className="hours-row" role="row">
+            <span role="cell">Lundi</span>
+            <span role="cell">10h-15h</span>
+          </div>
+          <div className="hours-row" role="row">
+            <span role="cell">Mardi</span>
+            <span role="cell">10h-15h</span>
+          </div>
+          <div className="hours-row" role="row">
+            <span role="cell">Mercredi</span>
+            <span role="cell">Fermé</span>
+          </div>
+          <div className="hours-row" role="row">
+            <span role="cell">Jeudi</span>
+            <span role="cell">10h-15h</span>
+          </div>
+          <div className="hours-row" role="row">
+            <span role="cell">Vendredi</span>
+            <span role="cell">9h-22h</span>
+          </div>
+          <div className="hours-row" role="row">
+            <span role="cell">Samedi</span>
+            <span role="cell">10h-22h</span>
+          </div>
+          <div className="hours-row" role="row">
+            <span role="cell">Dimanche</span>
+            <span role="cell">10h-22h</span>
+          </div>
+        </div>
+        <p>Horaires susceptibles de varier, pensez à appeler avant votre venue.</p>
         <div className="reserve-links">
-          <a href={`mailto:${siteData.email}`} className="btn-primary">
-            Demander une réservation
+          <a href={`tel:${siteData.phone.replace(/\s/g, "")}`} className="btn-primary">
+            Appeler
           </a>
           <a href={siteData.mapUrl} target="_blank" rel="noreferrer" className="btn-ghost">
-            Ouvrir l’itinéraire
+            Itineraire
           </a>
+        </div>
+      </AnimatedSection>
+
+      <AnimatedSection id="adresse" className="section two-col practicals">
+        <div>
+          <p className="kicker">Infos pratiques</p>
+          <h2>Adresse et accès</h2>
+          <p className="section-subtitle">
+            Le Mouton Noir, bar-restaurant à Vergt en Dordogne, vous accueille au 1 Place de la Halle, en coeur de village.
+          </p>
+          <div className="practical-links">
+            <a href={`tel:${siteData.phone.replace(/\s/g, "")}`} className="btn-primary">
+              Appeler
+            </a>
+            <a href={siteData.mapUrl} target="_blank" rel="noreferrer" className="btn-ghost">
+              Itineraire
+            </a>
+          </div>
+          <p className="section-subtitle">Telephone: {siteData.phone}</p>
+        </div>
+        <div className="map-wrap">
+          {!mapLoaded ? (
+            <div className="map-fallback">
+              <p>La carte Google peut être bloquée dans certains navigateurs intégrés.</p>
+              <a href={siteData.mapUrl} target="_blank" rel="noreferrer" className="btn-primary">
+                Ouvrir la carte
+              </a>
+            </div>
+          ) : null}
+          <iframe
+            title="Carte Google Maps Le Mouton Noir Vergt"
+            src={siteData.mapEmbedUrl}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            onLoad={() => setMapLoaded(true)}
+          />
         </div>
       </AnimatedSection>
 

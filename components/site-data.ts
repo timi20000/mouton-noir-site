@@ -1,28 +1,34 @@
 export const siteData = {
   name: "Le Mouton Noir",
-  tagline: "Table de caractère en Dordogne",
+  seoTagline: "Bar-restaurant sous la halle de Vergt",
+  tagline: "Bar-restaurant chaleureux au coeur de Vergt",
   description:
-    "Cuisine de saison, esprit maison et exécution soignée dans une atmosphère élégante et chaleureuse.",
-  phone: "+33 0 00 00 00 00",
+    "Le Mouton Noir est un bar-restaurant à Vergt, sous la halle, avec terrasse, ambiance conviviale et cuisine de saison.",
+  phone: "09 79 07 25 10",
   email: "reservation@lemoutonnoir.fr",
-  address: "Secteur de Corgnac-sur-l'Isle (Dordogne)",
-  mapUrl:
-    "https://www.google.com/maps/place/Le+Mouton+Noir/@45.0267326,0.7150057,17z/data=!3m1!4b1!4m6!3m5!1s0x47ff7d47ece5a779:0xfa4c4c935ce64f56!8m2!3d45.0267326!4d0.7175806!16s%2Fg%2F11rzp9dtjt",
+  address: "1 Place de la Halle, 24380 Vergt, Dordogne",
+  city: "Vergt",
+  region: "Dordogne",
+  postalCode: "24380",
+  mapUrl: "https://maps.google.com/?q=Le+Mouton+Noir+Vergt",
+  mapEmbedUrl:
+    "https://www.google.com/maps?q=Le+Mouton+Noir,+1+Place+de+la+Halle,+24380+Vergt&t=k&z=18&output=embed",
   coordinates: {
     latitude: 45.0267326,
     longitude: 0.7175806
   },
   openingHours: [
-    "Mardi - Jeudi: 19:00 - 22:30",
-    "Vendredi - Samedi: 19:00 - 23:00",
-    "Dimanche - Lundi: Fermé"
+    "Lundi: 10h-15h",
+    "Mardi: 10h-15h",
+    "Mercredi: Fermé",
+    "Jeudi: 10h-15h",
+    "Vendredi: 9h-22h",
+    "Samedi: 10h-22h",
+    "Dimanche: 10h-22h"
   ],
   socials: [
     { label: "Instagram", href: "https://instagram.com" },
-    {
-      label: "Google Maps",
-      href: "https://www.google.com/maps/place/Le+Mouton+Noir/@45.0267326,0.7150057,17z/data=!3m1!4b1!4m6!3m5!1s0x47ff7d47ece5a779:0xfa4c4c935ce64f56!8m2!3d45.0267326!4d0.7175806!16s%2Fg%2F11rzp9dtjt"
-    },
+    { label: "Google Maps", href: "https://maps.google.com/?q=Le+Mouton+Noir+Vergt" },
     { label: "Réserver", href: "mailto:reservation@lemoutonnoir.fr" }
   ],
   heroImages: [
@@ -31,9 +37,9 @@ export const siteData = {
     "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80"
   ],
   heroAlts: [
-    "Le Mouton Noir, restaurant de saison à Corgnac-sur-l'Isle en Dordogne, salle élégante",
-    "Cuisine de saison dressée dans l'esprit du restaurant Le Mouton Noir",
-    "Ambiance de soirée au restaurant Le Mouton Noir à Corgnac-sur-l'Isle"
+    "Restaurant Le Mouton Noir a Vergt",
+    "Cuisine de saison au Mouton Noir",
+    "Bar-restaurant Le Mouton Noir en Dordogne"
   ],
   gallery: [
     "https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=1400&q=80",
@@ -42,40 +48,34 @@ export const siteData = {
     "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80"
   ],
   galleryAlts: [
-    "Cuisine de saison et dressage raffiné au restaurant Le Mouton Noir",
-    "Table et service en salle au Mouton Noir en Dordogne",
-    "Atmosphère conviviale dans un restaurant de Corgnac-sur-l'Isle",
-    "Carte du restaurant Le Mouton Noir autour des produits de saison"
+    "Terrasse sous la halle de Vergt",
+    "Restaurant Le Mouton Noir a Vergt",
+    "Bar-restaurant Le Mouton Noir en Dordogne",
+    "Cuisine de saison au Mouton Noir"
   ],
   signatureDishes: [
     {
-      name: "Agneau confit 14h",
-      description: "Jus réduit, légumes racines fumés, huile de thym.",
-      price: "38€"
+      name: "Assiette du terroir",
+      description: "Produits locaux de Dordogne, saison et dressage maison.",
+      price: "18€"
     },
     {
-      name: "Saint-Jacques snackées",
-      description: "Crème de topinambour, noisettes torréfiées, citron noir.",
-      price: "34€"
+      name: "Plat du marche",
+      description: "Cuisine de saison, inspirations du monde et produits frais.",
+      price: "22€"
     },
     {
-      name: "Chocolat grand cru",
-      description: "Ganache 70%, praliné sarrasin, glace vanille bourbon.",
-      price: "16€"
+      name: "Coupe glacee artisanale",
+      description: "Glaces gourmandes, fruits et toppings selon l'inspiration.",
+      price: "9€"
     }
   ],
   testimonials: [
     {
-      name: "Camille R.",
-      role: "Food Journalist",
+      name: "Avis clients",
+      role: "Reputation locale",
       quote:
-        "Un service millimétré, une cuisine qui surprend sans jamais trahir le goût."
-    },
-    {
-      name: "Thomas M.",
-      role: "Client fidèle",
-      quote:
-        "L’équilibre parfait entre sophistication et chaleur. On revient pour l’émotion."
+        "Apprecie pour son cadre sous la halle, son service chaleureux, sa cuisine genereuse, ses produits frais et son bon rapport qualite/prix."
     }
   ]
 };
