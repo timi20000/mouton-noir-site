@@ -125,6 +125,7 @@ main {
   border-bottom: 1px solid var(--line);
 }
 
+.topbar > a:first-child,
 .topbar p {
   font-family: var(--font-display), serif;
   letter-spacing: 0.08em;
@@ -172,21 +173,35 @@ main {
   display: grid;
   align-content: start;
   padding: 1rem 1rem 2rem;
-  gap: 0.9rem;
   will-change: transform, opacity;
 }
 
+.mobile-panel-list {
+  width: min(620px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.mobile-panel-list > div {
+  width: 100%;
+}
+
 .mobile-panel a {
+  display: flex;
+  align-items: center;
+  width: 100%;
   padding: 0.75rem 0.9rem;
   color: #f2eee6;
-  font-size: 2rem;
-  line-height: 1.1;
+  font-size: clamp(2rem, 7vw, 3rem);
+  line-height: 1;
   font-family: var(--font-display), serif;
   border: 1px solid rgba(255, 255, 255, 0.16);
   background: linear-gradient(125deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
   border-radius: 0.9rem;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
   transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  min-height: 5.2rem;
 }
 
 .mobile-panel a:hover,
@@ -328,6 +343,88 @@ h1 {
   padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 4rem);
 }
 
+.subpage-hero {
+  padding: 7.5rem clamp(1rem, 4vw, 4rem) 1.5rem;
+}
+
+.subpage-hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  margin-bottom: 0.7rem;
+}
+
+.photo-grid-page {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.photo-tile {
+  position: relative;
+  min-height: 260px;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.photo-tile img {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.photo-tile:hover img {
+  transform: scale(1.03);
+}
+
+.photo-tile-1,
+.photo-tile-4 {
+  grid-column: span 2;
+}
+
+.menu-layout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.menu-category {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 1.1rem;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+}
+
+.menu-category h2 {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.menu-line {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.menu-line:last-child {
+  border-bottom: 0;
+}
+
+.menu-line h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.2rem;
+}
+
+.menu-line p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.menu-line span {
+  color: var(--accent);
+  font-weight: 700;
+}
+
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -384,12 +481,23 @@ h1 {
   gap: 1rem;
 }
 
+.dish-link {
+  display: block;
+  border-radius: 1rem;
+}
+
+.dish-link:focus-visible {
+  outline: 2px solid rgba(210, 168, 94, 0.7);
+  outline-offset: 2px;
+}
+
 .dish-card {
   border: 1px solid var(--line);
   border-radius: 1rem;
   padding: 1.2rem;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
   transition: transform 0.35s ease, border-color 0.35s ease;
+  cursor: pointer;
 }
 
 .dish-card:hover {
@@ -616,8 +724,15 @@ h1 {
   .two-col,
   .menu-grid,
   .quote-grid,
-  .gallery-grid {
+  .gallery-grid,
+  .photo-grid-page,
+  .menu-layout {
     grid-template-columns: 1fr;
+  }
+
+  .photo-tile-1,
+  .photo-tile-4 {
+    grid-column: auto;
   }
 
   .gallery-grid {
@@ -636,6 +751,10 @@ h1 {
 @media (max-width: 760px) {
   .ambient {
     opacity: 0.16;
+  }
+
+  .subpage-hero {
+    padding-top: 6.5rem;
   }
 
   .topbar nav {

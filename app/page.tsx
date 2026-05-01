@@ -1,25 +1,27 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
-import { ArrowUpRight, Clock3, MapPin, Menu, Phone, Star, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { ArrowUpRight, Clock3, MapPin, Phone, Star } from "lucide-react";
+import { useMemo, useState } from "react";
 import { AnimatedSection } from "@/components/animated-section";
 import { Reveal } from "@/components/reveal";
 import { SectionTitle } from "@/components/section-title";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import { siteData } from "@/components/site-data";
 
 const navItems = [
-  { label: "Concept", href: "#concept" },
-  { label: "Cuisine", href: "#signature" },
-  { label: "Terrasse", href: "#galerie" },
-  { label: "Avis", href: "#avis" },
-  { label: "Horaires", href: "#horaires" },
-  { label: "Adresse", href: "#adresse" }
+  { label: "Concept", href: "/#concept" },
+  { label: "Cuisine", href: "/#signature" },
+  { label: "Photos", href: "/photos" },
+  { label: "Menu", href: "/menu" },
+  { label: "Horaires", href: "/#horaires" },
+  { label: "Adresse", href: "/#adresse" }
 ];
 
 export default function HomePage() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
   const { scrollYProgress } = useScroll();
   const progressScaleX = useSpring(scrollYProgress, {
@@ -27,11 +29,6 @@ export default function HomePage() {
     damping: 24,
     restDelta: 0.001
   });
-
-  useEffect(() => {
-    document.body.classList.toggle("menu-open", menuOpen);
-    return () => document.body.classList.remove("menu-open");
-  }, [menuOpen]);
 
   const ldJson = useMemo(
     () => ({
@@ -70,56 +67,7 @@ export default function HomePage() {
       <div className="ambient ambient-3" />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
 
-      <header className="topbar">
-        <p>{siteData.name}</p>
-        <nav>
-          {navItems.map((item) => (
-            <a key={item.href} href={item.href}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
-        <button className="mobile-menu-btn" onClick={() => setMenuOpen((prev) => !prev)} aria-label="Menu">
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </header>
-
-      <AnimatePresence>
-        {menuOpen ? (
-          <>
-            <motion.button
-              className="mobile-backdrop"
-              aria-label="Fermer le menu"
-              onClick={() => setMenuOpen(false)}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
-            />
-            <motion.div
-              className="mobile-panel"
-              initial={{ opacity: 0, y: -16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {navItems.map((item, index) => (
-                <motion.a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMenuOpen(false)}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 6 }}
-                  transition={{ duration: 0.22, delay: index * 0.04 }}
-                >
-                  {item.label}
-                </motion.a>
-              ))}
-            </motion.div>
-          </>
-        ) : null}
-      </AnimatePresence>
+      <SiteHeader items={navItems} />
 
       <section className="hero">
         <div className="hero-media">
@@ -159,6 +107,9 @@ export default function HomePage() {
           <motion.div className="hero-cta" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.3 }}>
             <a href="#horaires" className="btn-primary">
               Reserver une table <ArrowUpRight size={16} />
+            </a>
+            <a href="/menu" className="btn-primary">
+              Voir le menu <ArrowUpRight size={16} />
             </a>
             <a href={`tel:${siteData.phone.replace(/\s/g, "")}`} className="btn-ghost">
               Appeler
@@ -203,20 +154,21 @@ export default function HomePage() {
         />
         <div className="menu-grid">
           {siteData.signatureDishes.map((dish, index) => (
-            <motion.article
-              key={dish.name}
-              className="dish-card"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.12 }}
-            >
-              <div className="dish-top">
-                <h3>{dish.name}</h3>
-                <span>{dish.price}</span>
-              </div>
-              <p>{dish.description}</p>
-            </motion.article>
+            <Link key={dish.name} href="/menu" className="dish-link" aria-label={`Voir le menu complet pour ${dish.name}`}>
+              <motion.article
+                className="dish-card"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.12 }}
+              >
+                <div className="dish-top">
+                  <h3>{dish.name}</h3>
+                  <span>{dish.price}</span>
+                </div>
+                <p>{dish.description}</p>
+              </motion.article>
+            </Link>
           ))}
         </div>
       </AnimatedSection>
@@ -341,18 +293,7 @@ export default function HomePage() {
         </div>
       </AnimatedSection>
 
-      <footer className="footer">
-        <p>
-          © {new Date().getFullYear()} {siteData.name}
-        </p>
-        <div>
-          {siteData.socials.map((social) => (
-            <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
-              {social.label}
-            </a>
-          ))}
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
