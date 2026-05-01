@@ -75,9 +75,13 @@ export default function HomePage() {
             <motion.div
               key={src}
               className={`hero-img hero-img-${index + 1}`}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.1, delay: index * 0.2 }}
+              initial={{ opacity: 0, scale: 1.06, y: 18 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{
+                duration: 1.4,
+                delay: 0.2 + index * 0.22,
+                ease: [0.22, 1, 0.36, 1]
+              }}
             >
               <Image
                 src={src}
